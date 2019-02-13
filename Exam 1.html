@@ -8,20 +8,25 @@
     <title>Mini App</title>
 
     <style>
-      body 
-      {background-color: white;}
-
+      body {
+        background-color: white;
+        margin: 15px;
+   
+      }
+      
+      .select{
+        margin-top: 50px;
+      }
+      .conversion{
+        margin: 25px 0px;
+      }
+      
       .btn{
-        display:block;
-        border-radius: 2px;
         padding: 25px 20px;
-        outline: none;
-        overflow: hidden;
-
         width: 100%;
         background-color: #2F80ED;
         color: white;
-        box-shadow: 0.5px 1px 2px #B7C2CF;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
       }
       
     </style>
@@ -31,12 +36,12 @@
     <h2>Bulletproof Agbada</h2>
     
     <div class = 'select-currency select'>
-      <select class = 'select-text'>
+      <select id = 'select' class = 'select-text'>
         <option selected disabled>Currency!</option>
       </select>
     </div>
 
-    <button type = 'button' class = 'btn'>Press Calculator</button>
+    <button id = 'button' type = 'button' class = 'btn'>Press Calculator</button>
     
     <div class = 'conversion mdc-elevation--z3'></div>
     <div class = 'messages'></div>
@@ -44,7 +49,8 @@
 
     
     <script>
-      
+
+      var select = document.getElementById('select');
       const currencies = [{
         id: 'USD', name: 'US Dollars'
       }, {
@@ -100,10 +106,15 @@
         doneToasting();
       };
       
-      // declare populateCurrencies here      
+      const populateCurrencies = () => {
+        for(x in currencies) {
+          var currency = currencies[x];
+          select.options[select.options.length] = new Option(currency.name, currency.id);
+        };  
+      };// declare populateCurrencies here
       
       const getSelectedCurrency = () => {
-        // here, determine and return the selected value 
+        return select.value;// here, determine and return the selected value 
         // of the SELECT element
       };
             
@@ -129,11 +140,14 @@
         
       };
       
+
       const startApp = () => {
-        // call populateCurrencies here
-        
-        // add a click listener to the button here
-      };
+        document.getElementById("button").addEventListener("click", convert(event)); // add a click listener to the button here
+        populateCurrencies();  
+      }; // call populateCurrencies here
+      
+      
+      
 
       startApp();
     </script>
